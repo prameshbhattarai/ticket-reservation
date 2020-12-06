@@ -1,1 +1,32 @@
-<h1>Reservation!</h1>
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div *ngIf="success" class="alert alert-success">{{success}}</div>
+<h2>Reservation</h2>
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="reservationFrom">Reservation From:</label>
+    <input type="text" formControlName="reservationFrom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reservationFrom.errors }" />
+    <div *ngIf="submitted && f.reservationFrom.errors" class="invalid-feedback">
+      <div *ngIf="f.reservationFrom.errors.required">Reservation From is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="reservationTo">Reservation To:</label>
+    <input type="text" formControlName="reservationTo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reservationTo.errors }" />
+    <div *ngIf="submitted && f.reservationTo.errors" class="invalid-feedback">
+      <div *ngIf="f.reservationTo.errors.required">Reservation To is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount:</label>
+    <input type="number" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+    <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+      <div *ngIf="f.amount.errors.required">Amount is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Make Reservation
+    </button>
+  </div>
+</form>
